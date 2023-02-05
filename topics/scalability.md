@@ -1,6 +1,8 @@
 # Scalability
 
 > the capacity to be changed in size or scale.
+>
+> This section deals with theory only.
 
 Scalability is the property of a system to handle a growing amount of work by adding resources to the system. It describes a system’s elasticity. While we often use it to refer to a system’s ability to grow, it is not exclusive to this definition. We can scale down, scale up, and scale out accordingly.
 
@@ -16,12 +18,11 @@ Scalability is the property of a system to handle a growing amount of work by ad
     - [Horizontal scaling](#horizontal-scaling)
       - [Advantages of horizontal scaling](#advantages-of-horizontal-scaling)
       - [Disadvantages of horizontal scaling](#disadvantages-of-horizontal-scaling)
+  - [Comparitive differences](#comparitive-differences)
+  - [The decision to scale out or scale up](#the-decision-to-scale-out-or-scale-up)
 
-// TODO
+**// TODO**
 
-- Types of scaling
-  - Vertical scaling
-  - Horizontal scaling
 - Caching
 - Load Balancers
 - Database
@@ -65,7 +66,7 @@ One of the fundamental differences between the two is that horizontal scaling re
 
 ### Vertical scaling
 
-Vertical scaling (aka scaling up) describes adding additional resources to a system so that it meets demand. How is this different from horizontal scaling? 
+Vertical scaling (aka scaling up) describes adding additional resources to a system so that it meets demand. How is this different from horizontal scaling?
 
 While horizontal scaling refers to adding additional nodes, vertical scaling describes adding more power to your current machines. For instance, if your server requires more processing power, vertical scaling would mean upgrading the CPUs. You can also vertically scale the memory, storage, or network speed.
 
@@ -75,20 +76,24 @@ Additionally, vertical scaling may also describe replacing a server entirely or 
 
 - Cost-effective - Upgrading a pre-existing server costs less than purchasing a new one. Additionally, you are less likely to add new backup and virtualization software when scaling vertically. Maintenance costs may potentially remain the same too.
 - Less complex process communication - When a single node handles all the layers of your services, it will not have to synchronize and communicate with other machines to work. This may result in faster responses.
-- Less complicated maintenance - Not only is maintenance cheaper but it is less complex because of the number of nodes you will need to manage. 
+- Less complicated maintenance - Not only is maintenance cheaper but it is less complex because of the number of nodes you will need to manage.
 - Less need for software changes - You are less likely to change how the software on a server works or how it is implemented.
 
 #### Disadvantages of vertical scaling
 
-- Higher possibility for downtime - Unless you have a backup server that can handle operations and requests, you will need some considerable downtime to upgrade your machine. 
-- Single point of failure - Having all your operations on a single server increases the risk of losing all your data if a hardware or software failure was to occur. 
+- Higher possibility for downtime - Unless you have a backup server that can handle operations and requests, you will need some considerable downtime to upgrade your machine.
+- Single point of failure - Having all your operations on a single server increases the risk of losing all your data if a hardware or software failure was to occur.
 - Upgrade limitations - There is a limitation to how much you can upgrade a machine. Every machine has its threshold for RAM, storage, and processing power.
+
+---
 
 ### Horizontal scaling
 
+![Vertical scaling vs horizontal scaling](../res/img/horizontal-vs-vertical-scaling.jfif)
+
 Horizontal scaling (aka scaling out) refers to adding additional nodes or machines to your infrastructure to cope with new demands. If you are hosting an application on a server and find that it no longer has the capacity or capabilities to handle traffic, adding a server may be your solution.
 
-It is quite similar to delegating workload among several employees instead of one. However, the downside of this may be the added complexity of your operation. You must decide which machine does what and how your new machines work with your old machines. 
+It is quite similar to delegating workload among several employees instead of one. However, the downside of this may be the added complexity of your operation. You must decide which machine does what and how your new machines work with your old machines.
 
 You can consider this the opposite of vertical scaling.
 
@@ -96,13 +101,36 @@ You can consider this the opposite of vertical scaling.
 
 - Scaling is easier from a hardware perspective - All horizontal scaling requires you to do is add additional machines to your current pool. It eliminates the need to analyze which system specifications you need to upgrade.
 - Fewer periods of downtime - Because you’re adding a machine, you don’t have to switch the old machine off while scaling. If done effectively, there may never be a need for downtime and clients are less likely to be impacted.
-- Increased resilience and fault tolerance - Relying on a single node for all your data and operations puts you at a high risk of losing it all when it fails. Distributing it among several nodes saves you from losing it all. 
-- Increased performance - If you are using horizontal scaling to manage your network traffic, it allows for more endpoints for connections, considering that the load will be delegated among multiple machines.     
+- Increased resilience and fault tolerance - Relying on a single node for all your data and operations puts you at a high risk of losing it all when it fails. Distributing it among several nodes saves you from losing it all.
+- Increased performance - If you are using horizontal scaling to manage your network traffic, it allows for more endpoints for connections, considering that the load will be delegated among multiple machines.
 
 #### Disadvantages of horizontal scaling
 
-- Increased complexity of maintenance and operation - Multiple servers are harder to maintain than a single server is. Additionally, you will need to add software for load balancing and possibly virtualization. - - 
-- Backing up your machines may also become a little more complex. You will need to ensure that nodes synchronize and communicate effectively. 
-- Increased Initial costs - Adding new servers is far more expensive than upgrading old ones.
+- Increased complexity of maintenance and operation - Multiple servers are harder to maintain than a single server is. Additionally, you will need to add software for load balancing and possibly virtualization. - -
+- Backing up your machines may also become a little more complex. You will need to ensure that nodes synchronize and communicate effectively.
+- Increased Initial costs - Adding new servers is far more expensive than upgrading old ones.kk[s]
 
-![Vertical scaling vs horizontal scaling](../res/img/horizontal-vs-vertical-scaling.jfif)
+---
+
+## Comparitive differences
+
+|                  | Horizontal Scaling (scaling out)                                                                                                                                                                                     | Vertical Scaling (scaling up)                                                                                                                                                                                  |
+|----------------- |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Databases        | In a database world, horizontal scaling is usually based on the partitioning of data (each node only contains part of the data).                                                                                     | In vertical scaling, the data lives on a single node and scaling is done through multi-core, e.g. spreading the load between the CPU and RAM resources of the machine.                                         |
+| Downtime         | In theory, adding more machines to the existing pool means you are not limited to the capacity of a single unit, making it possible to scale with less downtime.                                                     | Vertical scaling is limited to the capacity of one machine, scaling beyond that capacity can involve downtime and has an upper hard limit, i.e. the scale of the hardware on which you are currently running.  |
+| Concurrency      | Also described as distributed programming, as it involves distributing jobs across machines over the network. Several patterns associated with this model: Master/Worker*, Tuple Spaces, Blackboard, MapReduce.      | Actor model: concurrent programming on multi-core machines is often performed via multi-threading and in-process message passing.                                                                              |
+| Message passing  | In distributed computing, the lack of a shared address space makes data sharing more complex. It also makes the process of sharing, passing or updating data more costly since you have to pass copies of the data.  | In a multi-threaded scenario, you can assume the existence of a shared address space, so data sharing and message passing can be done by passing a reference.                                                  |
+| Examples         | Cassandra, MongoDB, Google Cloud Spanner                                                                                                                                                                             | MySQL, Amazon RDS                                                                                                                                                                                              |
+
+---
+
+## The decision to scale out or scale up
+
+In choosing between the two, there are various factors to consider. These include:
+
+- **Performance** - Scaling out allows you to combine the power of multiple machines into a single virtual machine with the combined power of all of them. This means you’re not limited to the capacity of a single unit. First, however, it’s worth working out if you have enough resources within a single machine to meet your scalability needs.
+- **Flexibility** - If your system is solely designed for scaling up, you are effectively locked into a minimum price set by the hardware you are using. If you want the flexibility to choose the optimal configuration setup at any time to optimize cost and performance, scaling out might be a better option.
+- **Regularity of Upgrades** - Again, flexibility is important here. Building an application as a single large unit will make it more difficult to add or change pieces of code individually without bringing the entire system down. In order to deliver a more continuous upgrade process, it’s easier to decouple your application and horizontally scale.
+- **Redundancy** - Horizontal scaling offers built-in redundancy in comparison to having only one system in vertical scaling, and thus a single point of failure.
+- **Geographical Distribution** - When you need to spread out an application across geographical regions or data centers in order to reduce geo-latency, comply with regulatory requirements, or handle disaster recovery scenarios, you don’t have the option of putting your application in a single box. You have to distribute it.
+- **Cost** - As more large multi-core machines enter the market at significantly lower price points, consider if there are instances in which your application (or portions of your application) can be usefully packaged in a single box and will meet your performance and scalability goals. This might lead to reduced costs.
