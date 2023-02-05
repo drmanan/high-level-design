@@ -9,7 +9,7 @@ Scalability is the property of a system to handle a growing amount of work by ad
 - [Scalability](#scalability)
   - [Content](#content)
   - [Usage of scalability](#usage-of-scalability)
-  - [Types of scalong](#types-of-scalong)
+  - [Types of scaling](#types-of-scaling)
     - [Vertical scaling](#vertical-scaling)
       - [Advantages of vertical scaling](#advantages-of-vertical-scaling)
       - [Disadvantages of vertical scaling](#disadvantages-of-vertical-scaling)
@@ -47,7 +47,9 @@ It is usually easier to have scalability upward rather than downward since devel
 
 ---
 
-## Types of scalong
+## Types of scaling
+
+![Scalability types](./../res/img/banner.jpg)
 
 Capacity planning is a challenge that every engineering team faces when it comes to ensuring the right resources are in place to handle expected (and unexpected) traffic demands. When demand for your application or website is increasing and you need to expand its accessibility, storage power, and availability levels, is it better to scale horizontally or vertically?
 
@@ -102,3 +104,5 @@ You can consider this the opposite of vertical scaling.
 - Increased complexity of maintenance and operation - Multiple servers are harder to maintain than a single server is. Additionally, you will need to add software for load balancing and possibly virtualization. - - 
 - Backing up your machines may also become a little more complex. You will need to ensure that nodes synchronize and communicate effectively. 
 - Increased Initial costs - Adding new servers is far more expensive than upgrading old ones.
+
+![Vertical scaling vs horizontal scaling](../res/img/horizontal-vs-vertical-scaling.jfif)
