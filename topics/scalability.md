@@ -20,8 +20,11 @@ Scalability is the property of a system to handle a growing amount of work by ad
       - [Disadvantages of horizontal scaling](#disadvantages-of-horizontal-scaling)
   - [Comparitive differences](#comparitive-differences)
   - [The decision to scale out or scale up](#the-decision-to-scale-out-or-scale-up)
+    - [Cost: The Grand Determinant](#cost-the-grand-determinant)
+  - [Cloneing](#cloneing)
+    - [Tangential Topic - infrastructure automation](#tangential-topic---infrastructure-automation)
 
-**// TODO**
+// **TODO**
 
 - Caching
 - Load Balancers
@@ -135,6 +138,38 @@ In choosing between the two, there are various factors to consider. These includ
 - **Geographical Distribution** - When you need to spread out an application across geographical regions or data centers in order to reduce geo-latency, comply with regulatory requirements, or handle disaster recovery scenarios, you don’t have the option of putting your application in a single box. You have to distribute it.
 - **Cost** - As more large multi-core machines enter the market at significantly lower price points, consider if there are instances in which your application (or portions of your application) can be usefully packaged in a single box and will meet your performance and scalability goals. This might lead to reduced costs.
 
-> It doesn’t always make sense to choose between horizontal and vertical scaling. Moving between the two models is often a better choice. For instance, in storage, we often want to switch between a single local disk to a distributed storage system.
->
-> Building flexibility into the system, where some layers of the application run on vertically scaled machines and other layers on horizontally scaled infrastructure remains a matter of designing for parallelization. To achieve this, (i) design it from the outset as a decoupled set of services, making the code easier to move, meaning you can add more resources when needed without breaking the ties between your code sets; (ii) partition your application and data model so the parallel units don’t share anything
+### Cost: The Grand Determinant
+
+It doesn’t always make sense to choose between horizontal and vertical scaling. Moving between the two models is often a better choice. For instance, in storage, we often want to switch between a single local disk to a distributed storage system.
+
+Building flexibility into the system, where some layers of the application run on vertically scaled machines and other layers on horizontally scaled infrastructure remains a matter of designing for parallelization. To achieve this, (i) design it from the outset as a decoupled set of services, making the code easier to move, meaning you can add more resources when needed without breaking the ties between your code sets; (ii) partition your application and data model so the parallel units don’t share anything.
+
+Despite your aspirations or organization’s needs, what may determine your decision, in the end, is cost. While horizontal scaling sounds great from a functional standpoint, you may not be able to afford it (right now). Nevertheless, it is still important to note that on-premise vertical and horizontal scaling may not be the only options available to you.
+
+You can integrate both or migrate your organization’s infrastructure to a cloud service provider and allow them to handle scaling for you. The latter may be more financially and pragmatically feasible for you, especially in the long run. 
+
+However, how do you actually prove this? If you migrate to a cloud solution, how do you determine your present and future cloud expenditure? 
+
+A cloud cost management platform may be the best way to do this. You can determine and prove that migration and cloud auto-scaling will ultimately be more cost-effective than on-premise scaling.
+
+## Cloneing
+
+Public servers of a scalable web service are hidden behind a load balancer.  This load balancer evenly distributes load (requests from your users) onto your group/cluster of  application servers. That means that if, for example, user interacts with your service, they may be served at his first request by server 2, then with his second request by server 9 and then maybe again by server 2 on his third request.
+
+User should always get the same results of their request back, independent what server they  “landed on”. That leads to the first golden rule for scalability: **every server must contain exactly the same codebase and does not store any user-related data, like sessions or profile pictures, on local disc or memory.**
+
+Sessions need to be stored in a centralized data store which is accessible to all your application servers. It can be an external database or an external persistent cache, like Redis. An external persistent cache will have better performance than an external database. External means that the data store does not reside on the application servers. Instead, it is somewhere in or near the data center of your application servers.
+
+But what about deployment? How can you make sure that a code change is sent to all your servers without one server still serving old code? This tricky problem is fortunately already solved by the great tools which automate server configurations like Capistrano, Terraform, Ansible, Chef Infra, Puppet, etc. It requires some learning but it is definitely worth the effort.
+
+After “outsourcing” your sessions and serving the same codebase from all your servers, you can now create an image file from one of these servers (AWS calls this AMI - Amazon Machine Image.) Use this AMI as a “super-clone” that all your new instances are based upon. A similar thing can be achieved by using Docker and Docker Images. Whenever you start a new instance/clone, just do an initial deployment of your latest code and you are ready!
+
+### Tangential Topic - infrastructure automation
+
+Tools for automating deployment can be categorised into the following.
+
+1. Infrastructure Provisioning
+1. Configuration Management
+1. Continuous Integration/Deployment
+1. Config/Secret Management
+1. Logging and Monitoring
