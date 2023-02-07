@@ -21,8 +21,9 @@ Scalability is the property of a system to handle a growing amount of work by ad
   - [Comparitive differences](#comparitive-differences)
   - [The decision to scale out or scale up](#the-decision-to-scale-out-or-scale-up)
     - [Cost: The Grand Determinant](#cost-the-grand-determinant)
-  - [Cloneing](#cloneing)
-    - [Tangential Topic - infrastructure automation](#tangential-topic---infrastructure-automation)
+  - [Cloning](#cloning)
+    - [Tangential Topic - Infrastructure Automation](#tangential-topic---infrastructure-automation)
+      - [Infrastructure provisioning](#infrastructure-provisioning)
 
 // **TODO**
 
@@ -152,7 +153,9 @@ However, how do you actually prove this? If you migrate to a cloud solution, how
 
 A cloud cost management platform may be the best way to do this. You can determine and prove that migration and cloud auto-scaling will ultimately be more cost-effective than on-premise scaling.
 
-## Cloneing
+---
+
+## Cloning
 
 Public servers of a scalable web service are hidden behind a load balancer.  This load balancer evenly distributes load (requests from your users) onto your group/cluster of  application servers. That means that if, for example, user interacts with your service, they may be served at his first request by server 2, then with his second request by server 9 and then maybe again by server 2 on his third request.
 
@@ -162,9 +165,9 @@ Sessions need to be stored in a centralized data store which is accessible to al
 
 But what about deployment? How can you make sure that a code change is sent to all your servers without one server still serving old code? This tricky problem is fortunately already solved by the great tools which automate server configurations like Capistrano, Terraform, Ansible, Chef Infra, Puppet, etc. It requires some learning but it is definitely worth the effort.
 
-After “outsourcing” your sessions and serving the same codebase from all your servers, you can now create an image file from one of these servers (AWS calls this AMI - Amazon Machine Image.) Use this AMI as a “super-clone” that all your new instances are based upon. A similar thing can be achieved by using Docker and Docker Images. Whenever you start a new instance/clone, just do an initial deployment of your latest code and you are ready!
+After “outsourcing” your sessions and serving the same codebase from all your servers, you can now create an image file from one of these servers (AWS calls this AMI - Amazon Machine Image.) Use this AMI as a “super-clone” that all your new instances are based upon. A similar thing can be achieved by using Docker and Docker Images (Container Orgastration). Whenever you start a new instance/clone, just do an initial deployment of your latest code and you are ready!
 
-### Tangential Topic - infrastructure automation
+### Tangential Topic - Infrastructure Automation
 
 Tools for automating deployment can be categorised into the following.
 
@@ -173,3 +176,7 @@ Tools for automating deployment can be categorised into the following.
 1. Continuous Integration/Deployment
 1. Config/Secret Management
 1. Logging and Monitoring
+
+#### Infrastructure provisioning
+
+Infrastructure provisioning is the process of provisioning or creating infrastructure resources. It is part of infrastructure as code.
