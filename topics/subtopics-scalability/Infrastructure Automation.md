@@ -1,14 +1,26 @@
 # Infrastructure Automation
 
+- [Infrastructure Automation](#infrastructure-automation)
+  - [Infrastructure provisioning](#infrastructure-provisioning)
+    - [Terraform](#terraform)
+      - [Useful Terraform Resources - all links non affiliated](#useful-terraform-resources---all-links-non-affiliated)
+    - [Pulumi](#pulumi)
+  - [Configuration Management](#configuration-management)
+    - [Ansible](#ansible)
+    - [Chef](#chef)
+    - [Puppet](#puppet)
+    - [Saltstack](#saltstack)
+    - [Helm](#helm)
+
 To achieve faster application delivery, the right **infrastructure automation tools** must be used in DevOps environments. Unfortunately, there is no single tool that fits all your needs, such as server provisioning, configuration management, automated builds, code deployments, and monitoring. Many factors determine the use of automation tools in an infrastructure. Leta look into core infrastructure automation tools that can be used in a typical environment practicing DevOps philosophy.
 
 There are many tools available for infrastructure automation. Choosing the right tool for infrastructure automation is decided by factors like platform architecture, skillsets, budget, security compliance, and the needs of your infrastructure. I have listed a few great tools below, which come under various categories like configuration management, orchestration, continuous integration, monitoring, etc. Tools for automating deployment can be categorised into the following.
 
 1. Infrastructure Provisioning
-1. Configuration Management
-1. Continuous Integration/Deployment
-1. Config/Secret Management
-1. Logging and Monitoring
+2. Configuration Management
+3. Continuous Integration/Deployment
+4. Config/Secret Management
+5. Logging and Monitoring
 
 ---
 
@@ -34,7 +46,7 @@ An Example of Terraform configuration can be found [here](../Examples/Terraform.
 
 ### [Pulumi][11]
 
-[Pulumi][11] is an IAC tool that supports multiple programming languages like Python, [Go][8], Javascript, C#, etc.
+[Pulumi][11] is an IAC tool that supports multiple programming languages like Python, [Go][8], Javascript, Java, etc.
 
 Unlike other IaaC templating tools, Pulumi aims to provide better flexibility in terms of infrastructure code in your favorite programming language. This makes infra-code testing easy with existing testing frameworks that are native to a programming language.
 
@@ -42,6 +54,51 @@ Pulumi supports all the major cloud platforms like AWS, Google Cloud, and Azure.
 If you are someone who wants to write pure code for your Infrastructure, you will give it a try for Pulumi.
 
 Pulumi (unlike terraform) has great tutorial and examples on their website which can be found [here][12].
+
+---
+
+## Configuration Management
+
+Configuration management is the process of configuring the provisioned infrastructure resources.
+
+### [Ansible][13]
+
+[Ansible][13] is agent-less configuration management as well as an orchestration tool. In Ansible, the configuration modules are called “Playbooks.”
+
+Playbooks are written in YAML format, and it is relatively easy to write compared to other configuration management tools. Like other tools, Ansible can also be used for cloud provisioning. Ansible also supports dynamic inventory where it can fetch the server details dynamically through API calls. An example configuration is available [here](../Examples/Ansiable%20AWS%20Dynamic%20inventory.md)
+
+But it is better to use tools like terraform for infrastructure provision and use Ansible for just configuration management. You can find all community playbooks from [Ansible Galaxy][14].
+
+### Chef
+
+Chef is a ruby-based configuration management tool. Chef has the concept of cookbooks where you code your infrastructure in DSL (domain-specific language) and with a little bit of programming.
+
+Chef configures virtual machines according to the rules mentioned in the cookbooks.A chef agent would be running on all the servers which have to be configured. The agent will pull the cookbooks from the chef master server and run those configurations on the server to reach their desired state.
+
+You can find all the community cookbooks from Chef Supermarket.
+
+### Puppet
+
+Puppet is also a ruby-based configuration management tool like Chef. The configuration code is written using puppet DSLs and wrapped in modules.
+While chef cookbooks are more developer-centric while the puppet is developed by keeping system administrators in mind.
+
+Puppet runs a puppet agent on all servers to be configured and it pulls the compiled module from the puppet server and installs the required software packages specified in the module. You can find all community Puppet Modules from Puppetforge
+
+### Saltstack
+
+Saltstack is a python based opens configuration management tool. Unlike chef and puppet, Saltstack supports the remote execution of commands.
+
+Normally in chef and puppet, the code for configuration will be pulled from the server while, in Saltstack, the code can be pushed to many nodes simultaneously. The compilation of code and configuration is very fast in Saltstack.
+
+> Note: The tool selection should be based entirely on project requirements and the team’s ability to learn and use the tool. For example, You can use Ansible to create infrastructure components and to configure VM instances. So if you have a small team and environment, terraform is not required to manage the infrastructure separately. Again it depends on how the existing team can learn and manage the toolsets.
+
+### Helm
+
+Helm is a configuration and package manager for Kubernetes. You can deploy any complex application on a Kubernetes cluster using Helm Charts.
+It has great templating features that support templates for all kubernetes objects like deployments, pods, services, config maps, secrets, RBAC, PSP, etc.
+
+You can use a single template to deploy multiple applications.
+Also, look at Kustomize. It is a native configuration management utility for Kubernetes.
 
 [1]: https://www.pluralsight.com/courses/terraform-getting-started
 [2]: https://www.educative.io/courses/terraform-beginner-master-aws
@@ -55,3 +112,5 @@ Pulumi (unlike terraform) has great tutorial and examples on their website which
 [10]: https://terraformbook.com/TheTerraformBook_sample.pdf
 [11]: https://www.pulumi.com/
 [12]: https://www.pulumi.com/docs/get-started/
+[13]: https://www.ansible.com/
+[14]: https://galaxy.ansible.com/
