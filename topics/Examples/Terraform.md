@@ -26,12 +26,12 @@ Terraform google cloud provider configuration is a series for key-value pairs an
 3. **Region** Google cloud region.
 4. **Zone** Google cloud zone.
 
-An example configuration is given below. With this configuration, you can connect to Google account in the central region on devopscube-demo project.
+An example configuration is given below. With this configuration, you can connect to Google account in the central region on demo project.
 
 ```yaml
 provider "google" {
   credentials = "${file("service-account.json")}"
-  project     = "devopscube-demo"
+  project     = "demo"
   region      = "us-central1"
   zone        = "us-central1-c"
 }
@@ -58,11 +58,11 @@ You can manage the service account in the following ways.
 ```yaml
 provider "google" {
   credentials = "${file("/opt/creds/service-account.json")}"
-  project     = "devopscube-demo"
+  project     = "demo"
   region      = "us-central1"
 }
 resource "google_compute_instance" "ubuntu-xenial" {
-   name = "devopscube-demo-instance"
+   name = "demo-instance"
    machine_type = "f1-micro"
    zone = "us-west1-a"
    boot_disk {
