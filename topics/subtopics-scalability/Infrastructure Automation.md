@@ -65,7 +65,7 @@ Configuration management is the process of configuring the provisioned infrastru
 
 [Ansible][13] is agent-less configuration management as well as an orchestration tool. In Ansible, the configuration modules are called “Playbooks.”
 
-Playbooks are written in YAML format, and it is relatively easy to write compared to other configuration management tools. Like other tools, Ansible can also be used for cloud provisioning. Ansible also supports dynamic inventory where it can fetch the server details dynamically through API calls. An example configuration is available [here](../Examples/Ansiable%20AWS%20Dynamic%20inventory.md)
+Playbooks are written in YAML format, and it is relatively easy to write compared to other configuration management tools. Like other tools, Ansible can also be used for cloud provisioning. Ansible also supports dynamic inventory where it can fetch the server details dynamically through API calls. An example configuration is available [here with AWS](../Examples/Ansiable%20AWS%20Dynamic%20inventory.md) and [here with Google Cloud](../Examples/Ansible%20Dynamic%20Inventory%20%20Google%20Cloud.md)
 
 But it is better to use tools like terraform for infrastructure provision and use Ansible for just configuration management. You can find all community playbooks from [Ansible Galaxy][14].
 
