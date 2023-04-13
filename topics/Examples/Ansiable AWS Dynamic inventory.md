@@ -7,3 +7,7 @@ When you are using Ansible with AWS, maintaining the inventory file will be a he
 However, there is an easy solution called ansible dynamic inventory. Dynamic inventory is an ansible plugin that makes an API call to AWS to get the instance information in the run time. It gives you the ec2 instance details dynamically to manage the AWS infrastructure.
 
 ![Ansible AWS Dynamic Inventory](../../res/img/ansiblee-inventory.png)
+
+Ansible has 2 flavours.
+![Ansible Flavours](../../res/img/AnciableFlovours.webp)
+I will be using the community 
